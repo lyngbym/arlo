@@ -95,3 +95,11 @@ ENV/
 # Test script
 ArloTest.py*
 
+# Downloads and Videos
+downloads/
+videos/
+
+# Credential Files
+gmail.credentials
+google_client_credentials.json
+
