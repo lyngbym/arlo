@@ -1,3 +1,4 @@
+import uuid
 from arlo import Arlo
 import config
 
@@ -20,20 +21,24 @@ try:
 
     # Get the list of devices and filter on device type to only get the basestation.
     # This will return an array which includes all of the basestation's associated metadata.
-    basestations = arlo.GetDevices(config.basestation)
+    basestation = arlo.GetDevices(device_type='basestation')[0]
+    print(basestation)
     
     # Get the list of devices and filter on device type to only get the cameras.
     # This will return an array of cameras, including all of the cameras' associated metadata.
-    cameras = arlo.GetDevices(config.camera_1)
+    cameras = arlo.GetDevices(device_type='camera')
 
-    print(basestations)
-    print(cameras)
+    # filter to only the camera matching config.camera_1
+    drivewayCamera = [camera for camera in cameras if camera['deviceName'] == config.camera_1][0]
 
     # Trigger the snapshot.
-    # url = arlo.TriggerFullFrameSnapshot(basestations[0], cameras[0]);
+    url = arlo.TriggerFullFrameSnapshot(basestation, drivewayCamera)
+
+    # Randomize the filename
+    filename = './downloads/' + str(uuid.uuid4()) + '.jpg'
     
     # # Download snapshot.
-    # arlo.DownloadSnapshot(url, 'snapshot.jpg')
+    arlo.DownloadSnapshot(url, filename)
     
     # If you are already recording, or have a need to snapshot while recording, you can do so like this:
     """

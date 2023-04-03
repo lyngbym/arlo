@@ -98,6 +98,7 @@ ArloTest.py*
 # Downloads and Videos
 downloads/
 videos/
+*.jpg
 
 # Credential Files
 gmail.credentials
